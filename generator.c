@@ -15,7 +15,16 @@
  *  - the opposite direction to dir
  */
 Direction get_opposite_dir(Direction dir) {
-    // TODO: implement this function
+    switch(dir) {
+        case 0:
+            return 1;
+        case 1:
+            return 0;
+        case 3:
+            return 2;
+        case 2:
+            return 3;
+    }
 }
 
 /*
@@ -28,7 +37,16 @@ Direction get_opposite_dir(Direction dir) {
  *  - nothing - the array should be shuffled in place
  */
 void shuffle_array(Direction directions[]) {
-    // TODO: implement this function
+    srand(time(NULL)); //??
+    int i;
+    for (i=3; i >=0; i--) {
+        //pick random num between i and n-1
+        int r = rand() % (i + 1);
+        // swap index i and r in directions ? 
+        Direction tmp = directions[i];
+        directions[i] = directions[r];
+        directions[r] = tmp;
+      }
 }
 
 /*
@@ -47,7 +65,29 @@ void shuffle_array(Direction directions[]) {
  */
 void drunken_walk(int row, int col, int num_rows, int num_cols,
                   struct maze_room maze[num_rows][num_cols]) {
-    // TODO: implement this function
+    int r = maze[row][col];
+    r.visited = 1;
+    int directions[4] = {0, 1, 2, 3}; //n, s, w, e
+    shuffle_array(dirs);
+    int i; 
+    for (i=0; i<4; i++) {
+        struct maze_room n = get_neighbor(num_rows, num_cols, maze, &r, directions[i]);
+        if !(is_in_range(n.row, n.col, num_rows, num_cols)) {
+            //store wall in r at direction of dir
+            r.dirs[directions[i]] = 1;
+        } else if (n.visited == 0){
+            //store an opening in r at direction dir
+            r.dirs[directions[i]] = 0;
+            drunken_walk(n.row, n.col, num_rows, num_cols, maze);
+        } else if (n.dirs[get_opposite_dir(directions[i])] != 1000) { //not sure if correct
+            /* if n has a wall or opening in the direction opposite of dir*/
+            //store that value in r at direction dir
+            r.dirs[directions[i]] = n.dirs[get_opposite_dir(directions[i])];
+        } else {
+            //store a wall in r at direction dir
+            r.dirs[directions[i]] = 1;
+        }
+    }
 }
 
 /*
@@ -60,7 +100,13 @@ void drunken_walk(int row, int col, int num_rows, int num_cols,
  *  - the integer representation of a room
  */
 int encode_room(struct maze_room room) {
-    // TODO: implement this function
+    int i;
+    // in theory this should work...
+    num = 0
+    for (i=3, i>=0; i--) {
+        num = (num * 2) + room.dirs[i]
+    }
+    return num
 }
 
 /*
@@ -80,6 +126,7 @@ void encode_maze(int num_rows, int num_cols,
                  struct maze_room maze[num_rows][num_cols],
                  int result[num_rows][num_cols]) {
     // TODO: implement this function
+
 }
 
 /*
@@ -140,7 +187,7 @@ int write_encoded_maze_to_file(int num_rows, int num_cols,
  *  - **argv: a pointer to the first element in the command line
  *            arguments array - for this function:
  *            ["generator", <output file>, <number of rows>, <number of
- *columns>]
+ *            columns>]
  *
  * Returns:
  *  - 0 if program exits correctly, 1 if there is an error
@@ -162,4 +209,13 @@ int main(int argc, char **argv) {
         num_cols = atoi(argv[3]);
     }
     // TODO: implement this function
+
+    //maze with any nums in result 
+
+
+    encoded_maze = encode_maze(num_rows, num_cols, )
+    write_encoded_maze_to_file(num_rows, num_cols, encoded_maze, file_name);
+
+    //just call encode maze? call drunken walk in encode maze?
+    // and then write the maze to the file using write_encoded_maze
 }
