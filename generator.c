@@ -225,5 +225,5 @@ int main(int argc, char **argv) {
     int result[num_rows][num_cols];
     encode_maze(num_rows, num_cols, maze, result); //correct for result? 
 
-    return write_encoded_maze_to_file(num_rows, num_cols, maze, file_name);
+    return write_encoded_maze_to_file(num_rows, num_cols, result, file_name);
 }
