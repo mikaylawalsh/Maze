@@ -18,7 +18,7 @@
  *  - 0 if room is not in the maze, 1 if room is in the maze
  */
 int is_in_range(int row, int col, int num_rows, int num_cols) {
-    if (row < num_row && col < num_cols && row >= 0 && col >= 0) {
+    if (row < num_rows && col < num_cols && row >= 0 && col >= 0) {
         return 1;
         } else {
             return 0;
@@ -42,22 +42,22 @@ int is_in_range(int row, int col, int num_rows, int num_cols) {
 struct maze_room *get_neighbor(int num_rows, int num_cols,
                                struct maze_room maze[num_rows][num_cols],
                                struct maze_room *room, Direction dir) {
-    if (is_in_range(*room.row, *room.col, num_rows, num_cols) != 0) {
+    if (is_in_range(*room->row, *room->col, num_rows, num_cols) != 0) {
         if (dir == 0) {
-            if (*room.row != 0) {
-                room = &maze[*room.row - 1][*room.col]; //try arrow notation if this fails
+            if (*room->row != 0) {
+                room = &maze[*room->row - 1][*room->col]; //try arrow notation if this fails
             }
         } else if (dir == 1) {
-            if (*room.row != num_rows - 1) {
-                room = &maze[*room.row + 1][*room.col];
+            if (*room->row != num_rows - 1) {
+                room = &maze[*room->row + 1][*room->col];
             }
         } else if (dir == 4) {
-            if (*room.col != num_cols - 1) {
-                room = &maze[*room.row][*room.col + 1]
+            if (*room->col != num_cols - 1) {
+                room = &maze[*room->row][*room->col + 1];
             }
         } else if (dir == 3) {
-            if (*room != 0) {
-                room = &maze[*room.row][*room.col - 1]
+            if (*room->col != 0) {
+                room = &maze[*room->row][*room->col - 1];
             }
         }
     } else {

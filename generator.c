@@ -64,14 +64,14 @@ void shuffle_array(Direction directions[]) {
  */
 void drunken_walk(int row, int col, int num_rows, int num_cols,
                   struct maze_room maze[num_rows][num_cols]) {
-    int r = maze[row][col];
+    struct maze_room r = maze[row][col];
     r.visited = 1;
     int directions[4] = {0, 1, 2, 3}; //n, s, w, e
-    shuffle_array(dirs);
+    shuffle_array(directions);
     int i; 
     for (i=0; i<4; i++) {
         struct maze_room n = get_neighbor(num_rows, num_cols, maze, &r, directions[i]);
-        if !(is_in_range(n.row, n.col, num_rows, num_cols)) {
+        if (!is_in_range(n.row, n.col, num_rows, num_cols)) {
             //store wall in r at direction of dir
             r.dirs[directions[i]] = 1;
         } else if (n.visited == 0){
@@ -102,10 +102,10 @@ int encode_room(struct maze_room room) {
     int i;
     // in theory this should work...
     int num = 0;
-    for (i=3, i>=0; i--) {
-        num = (num * 2) + room.dirs[i]
+    for (i=3; i>=0; i--) {
+        num = (num * 2) + room.dirs[i];
     }
-    return num
+    return num;
 }
 
 /*
@@ -128,7 +128,7 @@ void encode_maze(int num_rows, int num_cols,
     int j;
     for (i=0; i<num_rows; i++) {
         for (j=0; i<num_cols; j++) {
-            result[i][j] = encode_room(maze[i][j])
+            result[i][j] = encode_room(maze[i][j]);
         }
     }
 }
@@ -223,5 +223,5 @@ int main(int argc, char **argv) {
 
     encode_maze(num_rows, num_cols, maze, int result[num_rows][num_cols]); //correct for result? 
 
-    return write_encoded_maze_to_file(num_rows, num_cols, encoded_maze, file_name);
+    return write_encoded_maze_to_file(num_rows, num_cols, maze, file_name);
 }
