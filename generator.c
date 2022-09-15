@@ -37,7 +37,6 @@ Direction get_opposite_dir(Direction dir) {
  *  - nothing - the array should be shuffled in place
  */
 void shuffle_array(Direction directions[]) {
-    srand(time(NULL)); //??
     int i;
     for (i=3; i >=0; i--) {
         //pick random num between i and n-1
@@ -102,7 +101,7 @@ void drunken_walk(int row, int col, int num_rows, int num_cols,
 int encode_room(struct maze_room room) {
     int i;
     // in theory this should work...
-    num = 0
+    int num = 0;
     for (i=3, i>=0; i--) {
         num = (num * 2) + room.dirs[i]
     }
@@ -125,8 +124,13 @@ int encode_room(struct maze_room room) {
 void encode_maze(int num_rows, int num_cols,
                  struct maze_room maze[num_rows][num_cols],
                  int result[num_rows][num_cols]) {
-    // TODO: implement this function
-
+    int i;
+    int j;
+    for (i=0; i<num_rows; i++) {
+        for (j=0; i<num_cols; j++) {
+            result[i][j] = encode_room(maze[i][j])
+        }
+    }
 }
 
 /*
@@ -209,13 +213,15 @@ int main(int argc, char **argv) {
         num_cols = atoi(argv[3]);
     }
     // TODO: implement this function
+    srand(time(NULL));
+    
+    //call initalize maze pass in struct of maze room
+    initialize_maze(num_rows, num_cols, struct maze_room maze[num_rows][num_cols]); //is this how i do the maze
 
-    //maze with any nums in result 
+     //how do i do this?? correct? 
+    drunken_walk(0, 0, num_rows, num_cols, maze);
 
+    encode_maze(num_rows, num_cols, maze, int result[num_rows][num_cols]); //correct for result? 
 
-    encoded_maze = encode_maze(num_rows, num_cols, )
-    write_encoded_maze_to_file(num_rows, num_cols, encoded_maze, file_name);
-
-    //just call encode maze? call drunken walk in encode maze?
-    // and then write the maze to the file using write_encoded_maze
+    return write_encoded_maze_to_file(num_rows, num_cols, encoded_maze, file_name);
 }

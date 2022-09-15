@@ -30,7 +30,15 @@
  *pointed to by the parameter (make sure to use pointers correctly!).
  */
 void create_room_connections(struct maze_room *room, unsigned int hex) {
-    // TODO: implement this function
+     
+    int bin; 
+    //convert hex to binary
+
+    *room.dirs[0] = bin % 10
+    *room.dirs[1] = bin/10 % 10
+    *room.dirs[2] = bin/100 % 10
+    *room.dirs[3] = bin/1000
+
 }
 
 /*
