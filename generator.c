@@ -25,6 +25,7 @@ Direction get_opposite_dir(Direction dir) {
         case 2:
             return 3;
     }
+    return 0;
 }
 
 /*
