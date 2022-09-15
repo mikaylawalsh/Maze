@@ -66,11 +66,11 @@ void drunken_walk(int row, int col, int num_rows, int num_cols,
                   struct maze_room maze[num_rows][num_cols]) {
     struct maze_room r = maze[row][col];
     r.visited = 1;
-    int directions[4] = {0, 1, 2, 3}; //n, s, w, e
+    Direction directions[4] = {0, 1, 2, 3}; //n, s, w, e
     shuffle_array(directions);
     int i; 
     for (i=0; i<4; i++) {
-        struct maze_room n = get_neighbor(num_rows, num_cols, maze, &r, directions[i]);
+        struct maze_room n = *get_neighbor(num_rows, num_cols, maze, &r, directions[i]);
         if (!is_in_range(n.row, n.col, num_rows, num_cols)) {
             //store wall in r at direction of dir
             r.dirs[directions[i]] = 1;
