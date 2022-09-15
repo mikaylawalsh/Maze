@@ -216,12 +216,14 @@ int main(int argc, char **argv) {
     srand(time(NULL));
     
     //call initalize maze pass in struct of maze room
-    initialize_maze(num_rows, num_cols, struct maze_room maze[num_rows][num_cols]); //is this how i do the maze
+    struct maze_room maze[num_rows][num_cols];
+    initialize_maze(num_rows, num_cols, maze); //is this how i do the maze
 
      //how do i do this?? correct? 
     drunken_walk(0, 0, num_rows, num_cols, maze);
 
-    encode_maze(num_rows, num_cols, maze, int result[num_rows][num_cols]); //correct for result? 
+    int result[num_rows][num_cols];
+    encode_maze(num_rows, num_cols, maze, result); //correct for result? 
 
     return write_encoded_maze_to_file(num_rows, num_cols, maze, file_name);
 }
