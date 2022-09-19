@@ -82,6 +82,7 @@ void initialize_maze(int num_rows, int num_cols,
            struct maze_room maze[num_rows][num_cols]) {
     int i;
     int j;
+    int k;
     for (i = 0; i<num_rows; i++) { //changed this - make sure is right 
         for (j = 0; j<num_cols; j++){
             maze[i][j].row = i; 
