@@ -40,9 +40,9 @@ Direction get_opposite_dir(Direction dir) {
 void shuffle_array(Direction directions[]) {
     int i;
     for (i=3; i >=0; i--) {
-        //pick random num between i and n-1
-        int r = rand() % (i + 1);
-        // swap index i and r in directions ? 
+
+        int r = rand() % i; //math wrong? 
+
         Direction tmp = directions[i];
         directions[i] = directions[r];
         directions[r] = tmp;
