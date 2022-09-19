@@ -78,7 +78,7 @@ void drunken_walk(int row, int col, int num_rows, int num_cols,
         } else if (n.visited == 0){
             //store an opening in r at direction dir
             r.dirs[directions[i]] = 0;
-            drunken_walk(n.row, n.col, num_rows, num_cols, maze);
+            drunken_walk(n->row, n->col, num_rows, num_cols, maze);
         } else if (n.dirs[get_opposite_dir(directions[i])] != 1000) { //not sure if correct
             /* if n has a wall or opening in the direction opposite of dir*/
             //store that value in r at direction dir
@@ -124,7 +124,7 @@ void encode_maze(int num_rows, int num_cols,
     int j;
     for (i=0; i<num_rows; i++) {
         for (j=0; j<num_cols; j++) {
-            result[i][j] = encode_room(maze[i][j]); //seg fault here 
+            result[i][j] = encode_room(maze[i][j]); 
         }
     }
 }
@@ -213,10 +213,10 @@ int main(int argc, char **argv) {
     struct maze_room maze[num_rows][num_cols];
     initialize_maze(num_rows, num_cols, maze); 
 
-    drunken_walk(0, 0, num_rows, num_cols, maze);
+    drunken_walk(0, 0, num_rows, num_cols, maze); //new seg fault here 
 
     int result[num_rows][num_cols];
-    encode_maze(num_rows, num_cols, maze, result); //for some reason 4 is being passed in when it should be 3
+    encode_maze(num_rows, num_cols, maze, result);
 
     return write_encoded_maze_to_file(num_rows, num_cols, result, file_name);
 }
