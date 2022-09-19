@@ -51,11 +51,11 @@ struct maze_room *get_neighbor(int num_rows, int num_cols,
             if (room->row != num_rows - 1) {
                 room = &maze[room->row + 1][room->col];
             }
-        } else if (dir == 4) {
+        } else if (dir == 3) {
             if (room->col != num_cols - 1) {
                 room = &maze[room->row][room->col + 1];
             }
-        } else if (dir == 3) {
+        } else if (dir == 2) {
             if (room->col != 0) {
                 room = &maze[room->row][room->col - 1];
             }
