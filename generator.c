@@ -123,7 +123,7 @@ void encode_maze(int num_rows, int num_cols,
     int i;
     int j;
     for (i=0; i<num_rows; i++) {
-        for (j=0; i<num_cols; j++) {
+        for (j=0; j<num_cols; j++) {
             result[i][j] = encode_room(maze[i][j]); //seg fault here 
         }
     }
