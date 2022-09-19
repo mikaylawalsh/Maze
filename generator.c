@@ -39,15 +39,16 @@ Direction get_opposite_dir(Direction dir) {
  */
 void shuffle_array(Direction directions[]) {
     int i;
-    for (i=3; i >=0; i--) {
+    for (i=0; i < 4; i++) {
 
         printf("%d", i);
-        int r = rand() % i; //math wrong?
+        int r = (rand() % (4 - i)) + i; //math wrong?
         printf("%d", r); 
 
         Direction tmp = directions[i];
         directions[i] = directions[r];
         directions[r] = tmp;
+
       }
 }
 
