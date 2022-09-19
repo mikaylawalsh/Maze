@@ -66,7 +66,7 @@ void shuffle_array(Direction directions[]) {
  */
 void drunken_walk(int row, int col, int num_rows, int num_cols,
                   struct maze_room maze[num_rows][num_cols]) {
-    struct maze_room r = &maze[row][col];
+    struct maze_room *r = &maze[row][col];
     r.visited = 1;
     Direction directions[4] = {0, 1, 2, 3}; //n, s, w, e
     shuffle_array(directions);
