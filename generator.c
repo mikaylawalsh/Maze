@@ -78,7 +78,7 @@ void drunken_walk(int row, int col, int num_rows, int num_cols,
         } else if (n.visited == 0){
             //store an opening in r at direction dir
             r.dirs[directions[i]] = 0;
-            drunken_walk(n->row, n->col, num_rows, num_cols, maze);
+            drunken_walk(n.row, n.col, num_rows, num_cols, maze);
         } else if (n.dirs[get_opposite_dir(directions[i])] != 1000) { //not sure if correct
             /* if n has a wall or opening in the direction opposite of dir*/
             //store that value in r at direction dir
