@@ -30,15 +30,12 @@
  *pointed to by the parameter (make sure to use pointers correctly!).
  */
 void create_room_connections(struct maze_room *room, unsigned int hex) {
-     
-    int bin; 
-    //convert hex to binary
+    //convert hex to binary - room->connections[SOUTH] = (hex & 2) / 2;
 
-    *room.dirs[0] = bin % 10
-    *room.dirs[1] = bin/10 % 10
-    *room.dirs[2] = bin/100 % 10
-    *room.dirs[3] = bin/1000
-
+    room->dirs[0] = (hex & 1) / 1;
+    room->dirs[1] = (hex & 2) / 2;
+    room->dirs[2] = (hex & 4) / 4;
+    room->dirs[3] = (hex & 8) / 8;
 }
 
 /*
@@ -67,8 +64,22 @@ void create_room_connections(struct maze_room *room, unsigned int hex) {
  */
 int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
         int num_cols, struct maze_room maze[num_rows][num_cols], FILE *file) {
-    Direction directions[4] = { NORTH, SOUTH, EAST, WEST };
-    // TODO: implement this function
+    Direction directions[4] = { NORTH, SOUTH, EAST, WEST }; 
+
+    if (row == goal_row) && (col == goal_col) {
+        return 1;
+    }
+    maze[row][col].visited = 1;
+
+    for (i=0; i<4; i++) { //do i need dereference?
+        n = *get_neighbor(num_rows, num_cols, maze, *maze[row][col], directions[i]);
+        if (maze[row][col].dirs[i] == 0) && (n.visited == 0) {
+            if (dfs(n.row, n.col, goal_row, goal_col, num_rows, num_cols, maze, *file) == 1) {
+                return 1;
+            }
+        }
+    }
+    return 0;
 }
 
 /*
@@ -87,8 +98,16 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
  */
 void decode_maze(int num_rows, int num_cols,
                  struct maze_room maze[num_rows][num_cols],
-                 int encoded_maze[num_rows][num_cols]) {
-    // TODO: implement this function
+                 int encoded_maze[num_rows][num_cols]) {    
+    for (i=0; i<num_rows; i++) {
+        for (j=0; j<num_cols; j++) {
+            maze[i][j].row = i;
+            maze[i][j].col = j;
+            maze[i][j].visited = 0; //not sure if i need this
+            maze[i][j].next = ? //ask about this 
+            create_room_connections(&maze[i][j], encoded[i][j]) //need the &? this correct?
+        }
+    }
 }
 
 /*
@@ -187,5 +206,14 @@ int main(int argc, char **argv) {
         goal_row = atoi(argv[7]);
         goal_col = atoi(argv[8]);
     }
-    // TODO: implement this function
+
+    // not sure if this is the correct order -- also, need try_catch block?? how to return read output? 
+
+    struct maze_room encoded_maze[num_rows][num_cols];
+    read_encoded_maze_from_file(num_rows, num_cols, encoded_maze, maze_file_name);
+
+    struct maze_room decoded_maze[num_rows][num_cols];
+    decode_maze(num_rows, num_cols, decoded_maze, encoded_maze);
+
+    //call dfs here 
 }

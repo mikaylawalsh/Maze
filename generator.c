@@ -100,12 +100,7 @@ void drunken_walk(int row, int col, int num_rows, int num_cols,
  *  - the integer representation of a room
  */
 int encode_room(struct maze_room room) {
-    int i;
-    // in theory this should work...
-    int num = 0;
-    for (i=3; i>=0; i--) {
-        num = (num * 2) + room.dirs[i];
-    }
+    int num = 8 * room.dirs[3] + 4 * room.dirs[2] + 2 * room.dirs[1] + room.dirs[0];
     return num;
 }
 
@@ -129,7 +124,7 @@ void encode_maze(int num_rows, int num_cols,
     int j;
     for (i=0; i<num_rows; i++) {
         for (j=0; i<num_cols; j++) {
-            result[i][j] = encode_room(maze[i][j]);
+            result[i][j] = encode_room(maze[i][j]); //seg fault here 
         }
     }
 }
@@ -213,18 +208,15 @@ int main(int argc, char **argv) {
         num_rows = atoi(argv[2]);
         num_cols = atoi(argv[3]);
     }
-    // TODO: implement this function
     srand(time(NULL));
     
-    //call initalize maze pass in struct of maze room
     struct maze_room maze[num_rows][num_cols];
-    initialize_maze(num_rows, num_cols, maze); //is this how i do the maze
+    initialize_maze(num_rows, num_cols, maze); 
 
-     //how do i do this?? correct? 
     drunken_walk(0, 0, num_rows, num_cols, maze);
 
     int result[num_rows][num_cols];
-    encode_maze(num_rows, num_cols, maze, result); //correct for result? 
+    encode_maze(num_rows, num_cols, maze, result); //for some reason 4 is being passed in when it should be 3
 
     return write_encoded_maze_to_file(num_rows, num_cols, result, file_name);
 }
