@@ -67,7 +67,7 @@ void shuffle_array(Direction directions[]) {
 void drunken_walk(int row, int col, int num_rows, int num_cols,
                   struct maze_room maze[num_rows][num_cols]) {
     struct maze_room *r = &maze[row][col];
-    r.visited = 1;
+    r->visited = 1;
     Direction directions[4] = {0, 1, 2, 3}; //n, s, w, e
     shuffle_array(directions);
 
@@ -81,18 +81,18 @@ void drunken_walk(int row, int col, int num_rows, int num_cols,
 
         if (!is_in_range(nrow, ncol, num_rows, num_cols)) {
             //store wall in r at direction of dir
-            r.dirs[directions[i]] = 1;
+            r->dirs[directions[i]] = 1;
         } else if (nvisit == 0){
             //store an opening in r at direction dir
-            r.dirs[directions[i]] = 0;
+            r->dirs[directions[i]] = 0;
             drunken_walk(nrow, ncol, num_rows, num_cols, maze);
         } else if (n->dirs[get_opposite_dir(directions[i])] != 1000) {
             /* if n has a wall or opening in the direction opposite of dir*/
             //store that value in r at direction dir
-            r.dirs[directions[i]] = n->dirs[get_opposite_dir(directions[i])];
+            r->dirs[directions[i]] = n->dirs[get_opposite_dir(directions[i])];
         } else {
             //store a wall in r at direction dir
-            r.dirs[directions[i]] = 1;
+            r->dirs[directions[i]] = 1;
         }
     }
 }
