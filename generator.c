@@ -38,9 +38,9 @@ Direction get_opposite_dir(Direction dir) {
  *  - nothing - the array should be shuffled in place
  */
 void shuffle_array(Direction directions[]) {
-    
+
+    int i;  
     for (i=0; i<4; i++) {
-        int i;
 
         int r = (rand() % (4 - i)) + i; //math wrong?
 
@@ -71,8 +71,8 @@ void drunken_walk(int row, int col, int num_rows, int num_cols,
     Direction directions[4] = {0, 1, 2, 3}; //n, s, w, e
     shuffle_array(directions);
 
+    int i;
     for (i=0; i<4; i++) {
-        int i;
 
         struct maze_room *n = get_neighbor(num_rows, num_cols, maze, &r, directions[i]);
         int nrow = n->row;
