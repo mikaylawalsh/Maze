@@ -87,7 +87,7 @@ void initialize_maze(int num_rows, int num_cols,
             maze[i][j].row = i; 
             maze[i][j].col = j;
             maze[i][j].visited = 0;
-            for (k=0; k<4;i++) {
+            for (k=0; k<4;k++) {
                 maze[i][j].dirs[k] = 1000;
             }
         }
