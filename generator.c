@@ -41,7 +41,9 @@ void shuffle_array(Direction directions[]) {
     int i;
     for (i=3; i >=0; i--) {
 
-        int r = rand() % i; //math wrong? 
+        printf("%d", i);
+        int r = rand() % i; //math wrong?
+        printf("%d", r); 
 
         Direction tmp = directions[i];
         directions[i] = directions[r];
