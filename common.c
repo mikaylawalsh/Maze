@@ -20,9 +20,9 @@
 int is_in_range(int row, int col, int num_rows, int num_cols) {
     if (row < num_rows && col < num_cols && row >= 0 && col >= 0) {
         return 1;
-        } else {
-            return 0;
-            } 
+    } else {
+        return 0;
+        } 
 } 
 
 /*
@@ -45,7 +45,7 @@ struct maze_room *get_neighbor(int num_rows, int num_cols,
     if (is_in_range(room->row, room->col, num_rows, num_cols) != 0) {
         if (dir == 0) {
             if (room->row != 0) {
-                room = &maze[room->row - 1][room->col]; //try arrow notation if this fails
+                room = &maze[room->row - 1][room->col];
             }
         } else if (dir == 1) {
             if (room->row != num_rows - 1) {

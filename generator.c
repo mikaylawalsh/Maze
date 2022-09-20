@@ -79,7 +79,7 @@ void drunken_walk(int row, int col, int num_rows, int num_cols,
         int ncol = n->col;
         int nvisit = n->visited;
 
-        if (!is_in_range(nrow, ncol, num_rows, num_cols)) {
+        if (is_in_range(nrow, ncol, num_rows, num_cols) == 0) {
             //store wall in r at direction of dir
             r->dirs[directions[i]] = 1;
         } else if (nvisit == 0){
