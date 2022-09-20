@@ -75,7 +75,7 @@ void drunken_walk(int row, int col, int num_rows, int num_cols,
     for (i=0; i<4; i++) {
 
         printf("%d\n", 10000);
-        printf("%d/n", direction[i]);
+        printf("%d/n", directions[i]);
 
         if (get_neighbor(num_rows, num_cols, maze, r, directions[i]) == NULL) {
             r->dirs[directions[i]] = 1;
