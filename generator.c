@@ -72,10 +72,11 @@ void drunken_walk(int row, int col, int num_rows, int num_cols,
     shuffle_array(directions);
 
     int i;
-    for (i=0; i<4; i++) {\
+    for (i=0; i<4; i++) {
 
         if (get_neighbor(num_rows, num_cols, maze, r, directions[i]) == NULL) {
             r->dirs[directions[i]] = 1;
+            print("%d\n", r->row, r->col)
         } else {
 
             struct maze_room *n = get_neighbor(num_rows, num_cols, maze, r, directions[i]);
