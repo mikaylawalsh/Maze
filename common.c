@@ -56,16 +56,16 @@ struct maze_room *get_neighbor(int num_rows, int num_cols,
             room = &maze[room->row + 1][room->col];
         }
     } else if (dir == 2) {
-        if (is_in_range(room->row, room->col + 1, num_rows, num_cols) == 0) {
-            return NULL;
-        } else {
-            room = &maze[room->row][room->col + 1];
-        }
-    } else if (dir == 3) {
         if (is_in_range(room->row, room->col - 1, num_rows, num_cols) == 0) {
             return NULL;
         } else {
             room = &maze[room->row][room->col - 1];
+        }
+    } else if (dir == 3) {
+        if (is_in_range(room->row, room->col + 1, num_rows, num_cols) == 0) {
+            return NULL;
+        } else {
+            room = &maze[room->row][room->col + 1];
         }
     }
     return room;
