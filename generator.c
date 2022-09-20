@@ -76,7 +76,7 @@ void drunken_walk(int row, int col, int num_rows, int num_cols,
 
         if (get_neighbor(num_rows, num_cols, maze, r, directions[i]) == NULL) {
             r->dirs[directions[i]] = 1;
-            printf("===============/n%d==============\n", r->row, r->col)
+            printf("%d\n", r->row, r->col);
         } else {
 
             struct maze_room *n = get_neighbor(num_rows, num_cols, maze, r, directions[i]);
