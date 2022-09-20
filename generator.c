@@ -74,15 +74,19 @@ void drunken_walk(int row, int col, int num_rows, int num_cols,
     int i;
     for (i=0; i<4; i++) {
 
+        if (get_neighbor(num_rows, num_cols, maze, r, directions[i]) == NULL) {
+            r->dirs[directions[i]] = 1;
+        }
+
         struct maze_room *n = get_neighbor(num_rows, num_cols, maze, r, directions[i]);
         int nrow = n->row;
         int ncol = n->col;
         int nvisit = n->visited;
 
-        if (is_in_range(nrow, ncol, num_rows, num_cols) == 0) {
-            //store wall in r at direction of dir
-            r->dirs[directions[i]] = 1;
-        } else if (nvisit == 0){
+        // if (is_in_range(nrow, ncol, num_rows, num_cols) == 0) {
+        //     //store wall in r at direction of dir
+        //     r->dirs[directions[i]] = 1;
+        /*}*/ else if (nvisit == 0){
             //store an opening in r at direction dir
             r->dirs[directions[i]] = 0;
             drunken_walk(nrow, ncol, num_rows, num_cols, maze);

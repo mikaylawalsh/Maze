@@ -83,7 +83,7 @@ void initialize_maze(int num_rows, int num_cols,
     int i;
     int j;
     int k;
-    for (i = 0; i<num_rows; i++) { //changed this - make sure is right 
+    for (i = 0; i<num_rows; i++) {
         for (j = 0; j<num_cols; j++){
             maze[i][j].row = i; 
             maze[i][j].col = j;
