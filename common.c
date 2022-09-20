@@ -58,25 +58,25 @@ struct maze_room *get_neighbor(int num_rows, int num_cols,
 // }
 
     if (dir == 0) {
-        if (is_in_range(room->row + 1, room->col, num_rows, nu,num_cols) == 0) {
+        if (is_in_range(room->row + 1, room->col, num_rows, num_cols) == 0) {
             return NULL;
         } else {
             room = &maze[room->row - 1][room->col];
         }
     } else if (dir == 1) {
-        if (is_in_range(room->row - 1, room->col, num_rows, nu,num_cols) == 0) {
+        if (is_in_range(room->row - 1, room->col, num_rows, num_cols) == 0) {
             return NULL;
         } else {
             room = &maze[room->row + 1][room->col];
         }
     } else if (dir == 2) {
-        if (is_in_range(room->row, room->col - 1, num_rows, nu,num_cols) == 0) {
+        if (is_in_range(room->row, room->col - 1, num_rows, num_cols) == 0) {
             return NULL;
         } else {
             room = &maze[room->row][room->col + 1];
         }
     } else if (dir == 3) {
-        if (is_in_range(room->row, room->col + 1, num_rows, nu,num_cols) == 0) {
+        if (is_in_range(room->row, room->col + 1, num_rows, num_cols) == 0) {
             return NULL;
         } else {
             room = &maze[room->row][room->col - 1];
