@@ -145,7 +145,7 @@ int print_pruned_path(struct maze_room *room, FILE *file) {
     //print out each room in the list when you reach destination 
     //use next pointers to maintain linked list of rooms 
     while (room->next != NULL) { //?
-        r_coor = fprintf(file, "(%d,%d)\n", room->row, room->col);
+        int r_coor = fprintf(file, "(%d,%d)\n", room->row, room->col);
         if (r_coor < 0) {
             fprintf(stderr, "Error printing to file.\n");
             return 1;
@@ -263,6 +263,7 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Error printing to file.\n");
         return 1;
     }
+    #endif
 
     #ifdef PRUNED
     int p_prune = fprintf(file, "PRUNED\n");
