@@ -267,7 +267,7 @@ int main(int argc, char **argv) {
     }
     #endif
 
-    #ifdef PRUNED
+    #ifndef FULL
     int p_prune = fprintf(opened_file, "PRUNED\n");
     if (p_prune < 0) {
         fprintf(stderr, "Error printing to file.\n");
@@ -285,3 +285,5 @@ int main(int argc, char **argv) {
 
     return 0;
 }
+
+//put breakpoint and step thorugh to see if we are getting to print statements 
