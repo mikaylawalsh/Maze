@@ -68,7 +68,11 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
     Direction directions[4] = { NORTH, SOUTH, EAST, WEST }; 
     
     #ifdef FULL
-    fprintf(file, "(%d,%d)\n", maze[row][col].row, maze[row][col].col); //i think i call this in the wrong place
+    int p_coor = fprintf(file, "(%d,%d)\n", maze[row][col].row, maze[row][col].col); 
+    if (p_coor < 0) {
+        fprintf(stderr, "Error printing to file.\n");
+        return 1;
+    }
     #endif
 
     if ((row == goal_row) && (col == goal_col)) {
@@ -136,13 +140,16 @@ void decode_maze(int num_rows, int num_cols,
  *  - 1 if an error occurs, 0 otherwise ---- error checking 
  */
 int print_pruned_path(struct maze_room *room, FILE *file) {
-    //error checking and return int 
 
     //build list of rooms as you search
     //print out each room in the list when you reach destination 
     //use next pointers to maintain linked list of rooms 
     while (room->next != NULL) { //?
-        fprintf(file, "(%d,%d)\n", room->row, room->col);
+        r_coor = fprintf(file, "(%d,%d)\n", room->row, room->col);
+        if (r_coor < 0) {
+            fprintf(stderr, "Error printing to file.\n");
+            return 1;
+        }
         room = room->next;
     }
     return 0;
@@ -239,12 +246,39 @@ int main(int argc, char **argv) {
     decode_maze(num_rows, num_cols, decoded_maze, encoded_maze);
 
     FILE *opened_file = fopen(path_file_name, "w"); //how?
+    if (opened_file == NULL) {
+        fprintf(stderr, "Error opening file.\n");
+        return 1;
+    }
     //open file here and then call??
     //call dfs -- need to return?
+
+    //print full here 
     dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file);
 
     //differentiate between FULL or PRUNED
+    #ifdef FULL
+    int p_full = fprintf(file, "FULL\n");
+    if (p_full < 0) {
+        fprintf(stderr, "Error printing to file.\n");
+        return 1;
+    }
+
     #ifdef PRUNED
+    int p_prune = fprintf(file, "PRUNED\n");
+    if (p_prune < 0) {
+        fprintf(stderr, "Error printing to file.\n");
+        return 1;
+    }
+    
     print_pruned_path(decoded_maze[start_row][start_col], opened_file);
     #endif
+
+    int close = fclose(path_file_name);
+    if (close == EOF) {
+        fprintf(stderr, "Error closing file.\n");
+        return 1;
+    }
+
+    return 0;
 }
