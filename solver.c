@@ -72,7 +72,7 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
         if ((row == goal_row) && (col == goal_col)) {
             return 1;
             }
-        struct maze_room *room = maze[row][col]; //dereference? 
+        struct maze_room *room = &maze[row][col]; //dereference? 
         room->visited = 1;
 
         fprintf(file, "(%d,%d)\n", room->row, room->col); //maybe correct?  
@@ -82,7 +82,7 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
         for (i=0; i<4; i++) { //ask about address of maze here
             struct maze_room *n = get_neighbor(num_rows, num_cols, maze, &maze[row][col], directions[i]);
             if ((maze[row][col].dirs[i] == 0) && (n->visited == 0)) {
-                if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, *file) == 1) {
+                if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, *file, full_or_pruned) == 1) {
                     return 1;
             }
         }
@@ -135,7 +135,7 @@ void decode_maze(int num_rows, int num_cols,
             maze[i][j].col = j;
             maze[i][j].visited = 0; //not sure if i need this
             //maze[i][j].next = ? //ask about this 
-            create_room_connections(&maze[i][j], encoded_maze[i][j]) //need the &? this correct?
+            create_room_connections(&maze[i][j], encoded_maze[i][j]); //need the &? this correct?
         }
     }
 }
