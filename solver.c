@@ -258,7 +258,7 @@ int main(int argc, char **argv) {
 
     //differentiate between FULL or PRUNED
     #ifdef FULL
-    int p_full = fprintf(*path_file_name, "FULL\n");
+    int p_full = fprintf(opened_file, "FULL\n");
     if (p_full < 0) {
         fprintf(stderr, "Error printing to file.\n");
         return 1;
@@ -266,7 +266,7 @@ int main(int argc, char **argv) {
     #endif
 
     #ifdef PRUNED
-    int p_prune = fprintf(*path_file_name, "PRUNED\n");
+    int p_prune = fprintf(opened_file, "PRUNED\n");
     if (p_prune < 0) {
         fprintf(stderr, "Error printing to file.\n");
         return 1;
