@@ -64,11 +64,9 @@ void create_room_connections(struct maze_room *room, unsigned int hex) {
  */
 int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
         int num_cols, struct maze_room maze[num_rows][num_cols], FILE *file) {
-    // macros? check if defined - call ifdef FULL somewhere
     Direction directions[4] = { NORTH, SOUTH, EAST, WEST }; 
     
-    #ifdef FULL
-    printf("here");
+    #ifdef FULL   //is this in correct location?
     int p_coor = fprintf(file, "(%d,%d)\n", maze[row][col].row, maze[row][col].col); 
     if (p_coor < 0) {
         fprintf(stderr, "Error printing to file.\n");
@@ -90,7 +88,8 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
             if (n != NULL) {
                 if (n->visited == 0) {
                     if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, file) == 1) {
-                        maze[row][col].next = n;
+                        maze[row][col].next = n; //i feel like its not getting here 
+                        printf("%d\n", 1000000000000);
                         return 1;
                     }
         }
@@ -142,11 +141,10 @@ void decode_maze(int num_rows, int num_cols,
  */
 int print_pruned_path(struct maze_room *room, FILE *file) {
 
-    //build list of rooms as you search
-    //print out each room in the list when you reach destination 
-    //use next pointers to maintain linked list of rooms 
-    while (room->next != NULL) { //?
-        printf("here2");
+    //at first it is null -- need to set it to be something else for first one 
+    room
+
+    while (room->next != NULL) { //not getting in here?
         int r_coor = fprintf(file, "(%d,%d)\n", room->row, room->col);
         if (r_coor < 0) {
             fprintf(stderr, "Error printing to file.\n");
@@ -255,9 +253,6 @@ int main(int argc, char **argv) {
     //open file here and then call??
     //call dfs -- need to return?
 
-    //print full here 
-    dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file);
-
     //differentiate between FULL or PRUNED
     #ifdef FULL
     int p_full = fprintf(opened_file, "FULL\n");
@@ -266,6 +261,9 @@ int main(int argc, char **argv) {
         return 1;
     }
     #endif
+
+    //print full here 
+    dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file);
 
     #ifndef FULL
     int p_prune = fprintf(opened_file, "PRUNED\n");
