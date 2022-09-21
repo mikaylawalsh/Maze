@@ -231,8 +231,9 @@ int main(int argc, char **argv) {
     struct maze_room decoded_maze[num_rows][num_cols];
     decode_maze(num_rows, num_cols, decoded_maze, encoded_maze);
 
+    //open file here and then call??
     //call dfs -- need to return?
-    dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, path_file_name);
+    dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, *path_file_name);
 
     //differentiate between FULL or PRUNED
     #ifdef FULL
