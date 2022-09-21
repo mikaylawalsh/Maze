@@ -228,8 +228,8 @@ int main(int argc, char **argv) {
     int encoded_maze[num_rows][num_cols];
     read_encoded_maze_from_file(num_rows, num_cols, encoded_maze, maze_file_name);
 
-    struct maze_room* decoded_maze[num_rows][num_cols];
-    decode_maze(num_rows, num_cols, decoded_maze, &encoded_maze);
+    struct maze_room decoded_maze[num_rows][num_cols];
+    decode_maze(num_rows, num_cols, decoded_maze, encoded_maze);
 
     //call dfs -- need to return?
     dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, path_file_name);
