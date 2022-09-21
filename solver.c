@@ -89,7 +89,7 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
                 if (n->visited == 0) {
                     if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, file) == 1) {
                         maze[row][col].next = n; //i feel like its not getting here 
-                        printf("%d\n", 1000000000000);
+                        printf("%d\n", 1000);
                         return 1;
                     }
         }
@@ -142,7 +142,6 @@ void decode_maze(int num_rows, int num_cols,
 int print_pruned_path(struct maze_room *room, FILE *file) {
 
     //at first it is null -- need to set it to be something else for first one 
-    room
 
     while (room->next != NULL) { //not getting in here?
         int r_coor = fprintf(file, "(%d,%d)\n", room->row, room->col);
