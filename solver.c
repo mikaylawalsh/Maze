@@ -81,9 +81,9 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
 
     for (i=0; i<4; i++) { 
         struct maze_room *n = get_neighbor(num_rows, num_cols, maze, &maze[row][col], directions[i]);
-        maze[row][col].next = n;
-        if ((maze[row][col].dirs[i] == 0) && (n->visited == 0)) {
+        if ((room->dirs[i] == 0) && (n->visited == 0)) {
             if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, file) == 1) {
+                maze[row][col].next = n;
                 return 1;
             }
         }
@@ -134,7 +134,6 @@ void decode_maze(int num_rows, int num_cols,
 int print_pruned_path(struct maze_room *room, FILE *file) {
     //error checking and return int 
 
-
     //build list of rooms as you search
     //print out each room in the list when you reach destination 
     //use next pointers to maintain linked list of rooms 
@@ -142,7 +141,6 @@ int print_pruned_path(struct maze_room *room, FILE *file) {
         fprintf(file, "(%d,%d)\n", room->row, room->col);
         room = room->next;
     }
-
     return 0;
 }
 
