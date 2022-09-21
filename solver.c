@@ -66,9 +66,9 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
         int num_cols, struct maze_room maze[num_rows][num_cols], FILE *file) {
     // macros? check if defined - call ifdef FULL somewhere
     Direction directions[4] = { NORTH, SOUTH, EAST, WEST }; 
-    FILE *fopen(path_file_name, "w"); 
+    FILE *fopen(path_file_name, "w"); //how?
     // #ifdef FULL
-    fprintf(file, "(%d,%d)\n", room->row, room->col); //i think i call this in the wrong place
+    fprintf(file, "(%d,%d)\n", maze[row][col]->row, maze[row][col]->col); //i think i call this in the wrong place
 
     if ((row == goal_row) && (col == goal_col)) {
         return 1;
@@ -82,7 +82,7 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
         struct maze_room *n = get_neighbor(num_rows, num_cols, maze, &maze[row][col], directions[i]);
         maze[row][col].next = n;
         if ((maze[row][col].dirs[i] == 0) && (n->visited == 0)) {
-            if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, file, full_or_pruned) == 1) {
+            if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, file) == 1) {
                 return 1;
             }
         }
@@ -225,11 +225,11 @@ int main(int argc, char **argv) {
     }
 
     //need to return? 
-    struct maze_room encoded_maze[num_rows][num_cols];
-    read_encoded_maze_from_file(num_rows, num_cols, encoded_maze, maze_file_name);
+    struct maze_room* encoded_maze[num_rows][num_cols];
+    read_encoded_maze_from_file(num_rows, num_cols, &encoded_maze, maze_file_name);
 
-    struct maze_room decoded_maze[num_rows][num_cols];
-    decode_maze(num_rows, num_cols, decoded_maze, encoded_maze);
+    struct maze_room* decoded_maze[num_rows][num_cols];
+    decode_maze(num_rows, num_cols, decoded_maze, &encoded_maze);
 
     //call dfs -- need to return?
     dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, path_file_name);
@@ -240,5 +240,5 @@ int main(int argc, char **argv) {
     #ifdef PRUNED
 
     //call pruned if needed
-    print_pruned_path(decoded_maze[start_row][start_col], path_file_name);
+    print_pruned_path(decoded_maze[start_row][start_col], *path_file_name);
 }
