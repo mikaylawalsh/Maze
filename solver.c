@@ -274,7 +274,7 @@ int main(int argc, char **argv) {
         return 1;
     }
     
-    print_pruned_path(decoded_maze[start_row][start_col], opened_file);
+    print_pruned_path(&decoded_maze[start_row][start_col], opened_file);
     #endif
 
     int close = fclose(opened_file);
