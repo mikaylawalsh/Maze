@@ -275,7 +275,7 @@ int main(int argc, char **argv) {
     print_pruned_path(decoded_maze[start_row][start_col], opened_file);
     #endif
 
-    int close = fclose(path_file_name);
+    int close = fclose(opened_file);
     if (close == EOF) {
         fprintf(stderr, "Error closing file.\n");
         return 1;
