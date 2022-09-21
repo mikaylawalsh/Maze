@@ -69,19 +69,19 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
     Direction directions[4] = { NORTH, SOUTH, EAST, WEST }; 
 
     if (full_or_pruned == 0) { //do full
-        if (row == goal_row) && (col == goal_col) {
+        if ((row == goal_row) && (col == goal_col)) {
             return 1;
             }
-        room = maze[row][col]; //dereference? 
-        room.visited = 1;
+        struct maze_room *room = maze[row][col]; //dereference? 
+        room->visited = 1;
 
-        fprintf(*file, "(%d,%d)\n", room.row, room.col); //maybe correct?  
+        fprintf(file, "(%d,%d)\n", room->row, room->col); //maybe correct?  
         // does it add to each time or replace? if it replaces, make a string or somethign? 
         int i;
 
         for (i=0; i<4; i++) { //ask about address of maze here
-            struct maze_room *n = get_neighbor(num_rows, num_cols, maze, maze[row][col], directions[i]);
-            if (maze[row][col].dirs[i] == 0) && (n->visited == 0) {
+            struct maze_room *n = get_neighbor(num_rows, num_cols, maze, &maze[row][col], directions[i]);
+            if ((maze[row][col].dirs[i] == 0) && (n->visited == 0)) {
                 if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, *file) == 1) {
                     return 1;
             }
@@ -90,7 +90,7 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
     return 0;
 
     } else if (full_or_pruned == 1) { //do pruned
-        return -1;
+        return 2;
         // if (row == goal_row) && (col == goal_col) {
         //     return 1;
         //     }
@@ -126,14 +126,16 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
  */
 void decode_maze(int num_rows, int num_cols,
                  struct maze_room maze[num_rows][num_cols],
-                 int encoded_maze[num_rows][num_cols]) {    
+                 int encoded_maze[num_rows][num_cols]) {
+    int i;
+    int j;    
     for (i=0; i<num_rows; i++) {
         for (j=0; j<num_cols; j++) {
             maze[i][j].row = i;
             maze[i][j].col = j;
             maze[i][j].visited = 0; //not sure if i need this
-            maze[i][j].next = ? //ask about this 
-            create_room_connections(&maze[i][j], encoded[i][j]) //need the &? this correct?
+            //maze[i][j].next = ? //ask about this 
+            create_room_connections(&maze[i][j], encoded_maze[i][j]) //need the &? this correct?
         }
     }
 }
