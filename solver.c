@@ -80,12 +80,14 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
     int i;
 
     for (i=0; i<4; i++) { 
-        struct maze_room *n = get_neighbor(num_rows, num_cols, maze, &maze[row][col], directions[i]);
-        if ((room->dirs[i] == 0) && (n->visited == 0)) {
-            if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, file) == 1) {
-                maze[row][col].next = n;
-                return 1;
-            }
+        if (room->dirs[i] == 0) {
+            struct maze_room *n = get_neighbor(num_rows, num_cols, maze, &maze[row][col], directions[i]);
+            if (n->visited == 0) {
+                if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, file) == 1) {
+                    maze[row][col].next = n;
+                    return 1;
+                }
+        }
         }
     }
     return 0; 
