@@ -233,6 +233,7 @@ int main(int argc, char **argv) {
     read_encoded_maze_from_file(num_rows, num_cols, encoded_maze, maze_file_name);
 
     struct maze_room decoded_maze[num_rows][num_cols];
+    initialize_maze(num_rows, num_cols, decoded_maze);
     decode_maze(num_rows, num_cols, decoded_maze, encoded_maze);
 
     FILE *opened_file = fopen(path_file_name, "w"); //how?
