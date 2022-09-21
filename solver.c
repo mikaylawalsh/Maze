@@ -236,7 +236,7 @@ int main(int argc, char **argv) {
     FILE opened_file = *fopen(path_file_name, "w"); //how?
     //open file here and then call??
     //call dfs -- need to return?
-    dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file);
+    dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, *opened_file);
 
     //differentiate between FULL or PRUNED
     #ifdef FULL
