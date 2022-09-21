@@ -68,6 +68,7 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
     Direction directions[4] = { NORTH, SOUTH, EAST, WEST }; 
     
     #ifdef FULL
+    printf("here");
     int p_coor = fprintf(file, "(%d,%d)\n", maze[row][col].row, maze[row][col].col); 
     if (p_coor < 0) {
         fprintf(stderr, "Error printing to file.\n");
@@ -145,6 +146,7 @@ int print_pruned_path(struct maze_room *room, FILE *file) {
     //print out each room in the list when you reach destination 
     //use next pointers to maintain linked list of rooms 
     while (room->next != NULL) { //?
+        printf("here2");
         int r_coor = fprintf(file, "(%d,%d)\n", room->row, room->col);
         if (r_coor < 0) {
             fprintf(stderr, "Error printing to file.\n");
