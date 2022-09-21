@@ -66,9 +66,9 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
         int num_cols, struct maze_room maze[num_rows][num_cols], FILE *file) {
     // macros? check if defined - call ifdef FULL somewhere
     Direction directions[4] = { NORTH, SOUTH, EAST, WEST }; 
-    FILE *fopen(path_file_name, "w"); //how?
+    FILE *fopen(path_file_name, w); //how?
     // #ifdef FULL
-    fprintf(file, "(%d,%d)\n", maze[row][col]->row, maze[row][col]->col); //i think i call this in the wrong place
+    fprintf(file, "(%d,%d)\n", maze[row][col].row, maze[row][col].col); //i think i call this in the wrong place
 
     if ((row == goal_row) && (col == goal_col)) {
         return 1;
@@ -135,7 +135,7 @@ int print_pruned_path(struct maze_room *room, FILE *file) {
     //build list of rooms as you search
     //print out each room in the list when you reach destination 
     //use next pointers to maintain linked list of rooms 
-    FILE *fopen(path_file_name, "w"); 
+    FILE *fopen(path_file_name, w); 
     while (room->next != NULL) { //?
         fprintf(file, "(%d,%d)\n", room->row, room->col);
         room = room->next;
@@ -225,8 +225,8 @@ int main(int argc, char **argv) {
     }
 
     //need to return? 
-    struct maze_room* encoded_maze[num_rows][num_cols];
-    read_encoded_maze_from_file(num_rows, num_cols, &encoded_maze, maze_file_name);
+    int encoded_maze[num_rows][num_cols];
+    read_encoded_maze_from_file(num_rows, num_cols, encoded_maze, maze_file_name);
 
     struct maze_room* decoded_maze[num_rows][num_cols];
     decode_maze(num_rows, num_cols, decoded_maze, &encoded_maze);
