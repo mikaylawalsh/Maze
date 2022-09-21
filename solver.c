@@ -63,24 +63,52 @@ void create_room_connections(struct maze_room *room, unsigned int hex) {
  *valid.
  */
 int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
-        int num_cols, struct maze_room maze[num_rows][num_cols], FILE *file) {
+        int num_cols, struct maze_room maze[num_rows][num_cols], FILE *file, int full_or_pruned) {
+    //ask about error checking 
+
     Direction directions[4] = { NORTH, SOUTH, EAST, WEST }; 
 
-    if (row == goal_row) && (col == goal_col) {
-        return 1;
-    }
-    maze[row][col].visited = 1;
+    if (full_or_pruned == 0) { //do full
+        if (row == goal_row) && (col == goal_col) {
+            return 1;
+            }
+        room = maze[row][col]; //dereference? 
+        room.visited = 1;
 
-    for (i=0; i<4; i++) { //do i need dereference?
-        n = *get_neighbor(num_rows, num_cols, maze, *maze[row][col], directions[i]);
-        if (maze[row][col].dirs[i] == 0) && (n.visited == 0) {
-            if (dfs(n.row, n.col, goal_row, goal_col, num_rows, num_cols, maze, *file) == 1) {
-                return 1;
+        fprintf(*file, "(%d,%d)\n", room.row, room.col); //maybe correct?  
+        // does it add to each time or replace? if it replaces, make a string or somethign? 
+        int i;
+
+        for (i=0; i<4; i++) { //ask about address of maze here
+            struct maze_room *n = get_neighbor(num_rows, num_cols, maze, maze[row][col], directions[i]);
+            if (maze[row][col].dirs[i] == 0) && (n->visited == 0) {
+                if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, *file) == 1) {
+                    return 1;
             }
         }
     }
     return 0;
-}
+
+    } else if (full_or_pruned == 1) { //do pruned
+        return -1;
+        // if (row == goal_row) && (col == goal_col) {
+        //     return 1;
+        //     }
+    
+        // maze[row][col].visited = 1;
+
+        // int i;
+
+        // for (i=0; i<4; i++) { //ask about address of maze here
+        //     struct maze_room *n = get_neighbor(num_rows, num_cols, maze, maze[row][col], directions[i]);
+        //     if (maze[row][col].dirs[i] == 0) && (n->visited == 0) {
+        //         if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, *file) == 1) {
+        //             return 1;
+        //     }
+        // }
+    }
+    return 0;
+    }   
 
 /*
  * Decodes an encoded maze and stores the resulting maze room data in the
@@ -119,10 +147,11 @@ void decode_maze(int num_rows, int num_cols,
  *  - file: the file where to print the path
  *
  * Returns:
- *  - 1 if an error occurs, 0 otherwise
+ *  - 1 if an error occurs, 0 otherwise ---- error checking 
  */
 int print_pruned_path(struct maze_room *room, FILE *file) {
     // TODO: implement this function
+    
 }
 
 /*
@@ -216,4 +245,6 @@ int main(int argc, char **argv) {
     decode_maze(num_rows, num_cols, decoded_maze, encoded_maze);
 
     //call dfs here 
+
+    //specify header! -- pass in 0 for full and 1 for pruned
 }
