@@ -233,7 +233,7 @@ int main(int argc, char **argv) {
     struct maze_room decoded_maze[num_rows][num_cols];
     decode_maze(num_rows, num_cols, decoded_maze, encoded_maze);
 
-    FILE opened_file = *fopen(path_file_name, w); //how?
+    FILE opened_file = *fopen(path_file_name, "w"); //how?
     //open file here and then call??
     //call dfs -- need to return?
     dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file);
