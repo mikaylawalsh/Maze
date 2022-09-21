@@ -66,7 +66,6 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
         int num_cols, struct maze_room maze[num_rows][num_cols], FILE *file) {
     // macros? check if defined - call ifdef FULL somewhere
     Direction directions[4] = { NORTH, SOUTH, EAST, WEST }; 
-    FILE *fopen(path_file_name, w); //how?
     // #ifdef FULL
     fprintf(file, "(%d,%d)\n", maze[row][col].row, maze[row][col].col); //i think i call this in the wrong place
 
@@ -131,15 +130,18 @@ void decode_maze(int num_rows, int num_cols,
  *  - 1 if an error occurs, 0 otherwise ---- error checking 
  */
 int print_pruned_path(struct maze_room *room, FILE *file) {
-    
+    //error checking and return int 
+
+
     //build list of rooms as you search
     //print out each room in the list when you reach destination 
     //use next pointers to maintain linked list of rooms 
-    FILE *fopen(path_file_name, w); 
     while (room->next != NULL) { //?
         fprintf(file, "(%d,%d)\n", room->row, room->col);
         room = room->next;
     }
+
+    return 0;
 }
 
 /*
@@ -231,9 +233,10 @@ int main(int argc, char **argv) {
     struct maze_room decoded_maze[num_rows][num_cols];
     decode_maze(num_rows, num_cols, decoded_maze, encoded_maze);
 
+    FILE opened_file = *fopen(path_file_name, w); //how?
     //open file here and then call??
     //call dfs -- need to return?
-    dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, *path_file_name);
+    dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file);
 
     //differentiate between FULL or PRUNED
     #ifdef FULL
@@ -241,5 +244,5 @@ int main(int argc, char **argv) {
     #ifdef PRUNED
 
     //call pruned if needed
-    print_pruned_path(decoded_maze[start_row][start_col], *path_file_name);
+    print_pruned_path(decoded_maze[start_row][start_col], opened_file);
 }
