@@ -66,8 +66,10 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
         int num_cols, struct maze_room maze[num_rows][num_cols], FILE *file) {
     // macros? check if defined - call ifdef FULL somewhere
     Direction directions[4] = { NORTH, SOUTH, EAST, WEST }; 
-    // #ifdef FULL
+    
+    #ifdef FULL
     fprintf(file, "(%d,%d)\n", maze[row][col].row, maze[row][col].col); //i think i call this in the wrong place
+    #endif
 
     if ((row == goal_row) && (col == goal_col)) {
         return 1;
@@ -239,10 +241,7 @@ int main(int argc, char **argv) {
     dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file);
 
     //differentiate between FULL or PRUNED
-    #ifdef FULL
-
     #ifdef PRUNED
-
-    //call pruned if needed
     print_pruned_path(decoded_maze[start_row][start_col], opened_file);
+    #endif
 }
