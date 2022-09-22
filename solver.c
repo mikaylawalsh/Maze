@@ -84,7 +84,7 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
     int i;
 
     for (i=0; i<4; i++) { 
-        if (room->dirs[i] == 0) {
+        if (room->dirs[directions[i]] == 0) {
             // n is being set to NULL
             struct maze_room *n = get_neighbor(num_rows, num_cols, maze, &maze[row][col], directions[i]);
             if (n != NULL) {
@@ -92,6 +92,14 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
                     if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, file) == 1) {
                         maze[row][col].next = n; //i feel like its not getting here 
                         return 1;
+                    } else {
+                        #ifdef FULL   //is this in correct location?
+                        int p_coor = fprintf(file, "%d, %d\n", maze[row][col].row, maze[row][col].col); 
+                        if (p_coor < 0) {
+                        fprintf(stderr, "Error printing to file.\n");
+                        return 1;
+                        }
+                        #endif
                     }
         }
         }
