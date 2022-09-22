@@ -241,7 +241,7 @@ int main(int argc, char **argv) {
         goal_col = atoi(argv[8]);
     }
 
-    if ((num_rows <= 0) || (num_col <= 0)) {
+    if ((num_rows <= 0) || (num_cols <= 0)) {
         return 1;
     }
     if ((is_in_range(start_row, start_col, num_rows, num_cols) ==0) || (is_in_range(goal_row, goal_col, num_rows, num_cols) ==0)) {[
