@@ -247,10 +247,7 @@ int main(int argc, char **argv) {
 
     //need to return? 
     int encoded_maze[num_rows][num_cols];
-    int r = read_encoded_maze_from_file(num_rows, num_cols, encoded_maze, maze_file_name);
-    if (r==1) {
-        return 1;
-    }
+    read_encoded_maze_from_file(num_rows, num_cols, encoded_maze, maze_file_name);
 
     struct maze_room decoded_maze[num_rows][num_cols];
     initialize_maze(num_rows, num_cols, decoded_maze);
@@ -274,10 +271,7 @@ int main(int argc, char **argv) {
     #endif
 
     //print full here 
-    int d = dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file);
-    if (d == 1) {[
-        return 1;
-    ]}
+    dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file);
 
     #ifndef FULL
     int p_prune = fprintf(opened_file, "PRUNED\n");
@@ -286,10 +280,7 @@ int main(int argc, char **argv) {
         return 1;
     }
     
-    int p = print_pruned_path(&decoded_maze[start_row][start_col], opened_file);
-    if (p ==1) {
-        return 1;
-    }
+    print_pruned_path(&decoded_maze[start_row][start_col], opened_file);
     #endif
 
     int close = fclose(opened_file);
