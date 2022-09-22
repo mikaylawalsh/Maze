@@ -221,11 +221,15 @@ int main(int argc, char **argv) {
         num_cols = atoi(argv[3]);
     }
     srand(time(NULL));
+
+    if ((num_rows <= 0) || (num_cols <= 0)) {
+        return 1;
+    }
     
     struct maze_room maze[num_rows][num_cols];
     initialize_maze(num_rows, num_cols, maze); 
 
-    drunken_walk(0, 0, num_rows, num_cols, maze); //new seg fault here 
+    drunken_walk(0, 0, num_rows, num_cols, maze);
 
     int result[num_rows][num_cols];
     encode_maze(num_rows, num_cols, maze, result);
