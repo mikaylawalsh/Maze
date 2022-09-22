@@ -245,9 +245,11 @@ int main(int argc, char **argv) {
         goal_col = atoi(argv[8]);
     }
 
-    //need to return? 
     int encoded_maze[num_rows][num_cols];
     read_encoded_maze_from_file(num_rows, num_cols, encoded_maze, maze_file_name);
+    if (read_encoded_maze_from_file(num_rows, num_cols, encoded_maze, maze_file_name) == 1) {
+        return 1; 
+    }
 
     struct maze_room decoded_maze[num_rows][num_cols];
     initialize_maze(num_rows, num_cols, decoded_maze);
@@ -258,10 +260,7 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Error opening file.\n");
         return 1;
     }
-    //open file here and then call??
-    //call dfs -- need to return?
 
-    //differentiate between FULL or PRUNED
     #ifdef FULL
     int p_full = fprintf(opened_file, "FULL\n");
     if (p_full < 0) {
@@ -270,8 +269,10 @@ int main(int argc, char **argv) {
     }
     #endif
 
-    //print full here 
     dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file);
+    if (dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file) == 1) {
+        return 1;
+    }
 
     #ifndef FULL
     int p_prune = fprintf(opened_file, "PRUNED\n");
@@ -281,6 +282,9 @@ int main(int argc, char **argv) {
     }
     
     print_pruned_path(&decoded_maze[start_row][start_col], opened_file);
+    if (print_pruned_path(&decoded_maze[start_row][start_col], opened_file) == 1) {
+        return 1; 
+    }
     #endif
 
     int close = fclose(opened_file);
@@ -288,8 +292,5 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Error closing file.\n");
         return 1;
     }
-
     return 0;
 }
-
-//put breakpoint and step thorugh to see if we are getting to print statements 
