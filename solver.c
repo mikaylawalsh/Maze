@@ -67,7 +67,7 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
     Direction directions[4] = { NORTH, SOUTH, WEST, EAST }; //i edited this -- problem?
     
     #ifdef FULL   //is this in correct location?
-    int p_coor = fprintf(file, "(%d,%d)\n", maze[row][col].row, maze[row][col].col); 
+    int p_coor = fprintf(file, "%d, %d\n", maze[row][col].row, maze[row][col].col); 
     if (p_coor < 0) {
         fprintf(stderr, "Error printing to file.\n");
         return 1;
@@ -145,7 +145,7 @@ int print_pruned_path(struct maze_room *room, FILE *file) {
     //at first it is null -- need to set it to be something else for first one 
 
     while (room != NULL) { //not getting in here?
-        int r_coor = fprintf(file, "(%d,%d)\n", room->row, room->col);
+        int r_coor = fprintf(file, "%d, %d\n", room->row, room->col);
         if (r_coor < 0) {
             fprintf(stderr, "Error printing to file.\n");
             return 1;
