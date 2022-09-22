@@ -244,9 +244,9 @@ int main(int argc, char **argv) {
     if ((num_rows <= 0) || (num_cols <= 0)) {
         return 1;
     }
-    if ((is_in_range(start_row, start_col, num_rows, num_cols) ==0) || (is_in_range(goal_row, goal_col, num_rows, num_cols) ==0)) {[
+    if ((is_in_range(start_row, start_col, num_rows, num_cols) ==0) || (is_in_range(goal_row, goal_col, num_rows, num_cols) ==0)) {
         return 1; 
-    ]}
+    }
 
     int encoded_maze[num_rows][num_cols];
     if (read_encoded_maze_from_file(num_rows, num_cols, encoded_maze, maze_file_name) == 1) {
