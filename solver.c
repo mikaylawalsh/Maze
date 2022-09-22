@@ -91,7 +91,6 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
                 if (n->visited == 0) {
                     if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, file) == 1) {
                         maze[row][col].next = n; //i feel like its not getting here 
-                        printf("%d\n", 1000);
                         return 1;
                     }
         }
