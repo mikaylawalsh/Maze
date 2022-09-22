@@ -75,6 +75,7 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
     #endif
 
     if ((row == goal_row) && (col == goal_col)) {
+        maze[row][col].next = NULL;
         return 1;
         }
     struct maze_room *room = &maze[row][col]; 
