@@ -144,7 +144,7 @@ int print_pruned_path(struct maze_room *room, FILE *file) {
 
     //at first it is null -- need to set it to be something else for first one 
 
-    while (room->next != NULL) { //not getting in here?
+    while (room != NULL) { //not getting in here?
         int r_coor = fprintf(file, "(%d,%d)\n", room->row, room->col);
         if (r_coor < 0) {
             fprintf(stderr, "Error printing to file.\n");
