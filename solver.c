@@ -64,7 +64,7 @@ void create_room_connections(struct maze_room *room, unsigned int hex) {
  */
 int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
         int num_cols, struct maze_room maze[num_rows][num_cols], FILE *file) {
-    Direction directions[4] = { NORTH, SOUTH, EAST, WEST }; 
+    Direction directions[4] = { NORTH, SOUTH, WEST, EAST }; //i edited this -- problem?
     
     #ifdef FULL   //is this in correct location?
     int p_coor = fprintf(file, "(%d,%d)\n", maze[row][col].row, maze[row][col].col); 
@@ -84,6 +84,7 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
 
     for (i=0; i<4; i++) { 
         if (room->dirs[i] == 0) {
+            // n is being set to NULL
             struct maze_room *n = get_neighbor(num_rows, num_cols, maze, &maze[row][col], directions[i]);
             if (n != NULL) {
                 if (n->visited == 0) {
