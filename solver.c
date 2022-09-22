@@ -241,8 +241,14 @@ int main(int argc, char **argv) {
         goal_col = atoi(argv[8]);
     }
 
+    if ((num_rows <= 0) || (num_col <= 0)) {
+        return 1;
+    }
+    if ((is_in_range(start_row, start_col, num_rows, num_cols) ==0) || (is_in_range(goal_row, goal_col, num_rows, num_cols) ==0)) {[
+        return 1; 
+    ]}
+
     int encoded_maze[num_rows][num_cols];
-    // read_encoded_maze_from_file(num_rows, num_cols, encoded_maze, maze_file_name);
     if (read_encoded_maze_from_file(num_rows, num_cols, encoded_maze, maze_file_name) == 1) {
         return 1; 
     }
@@ -274,7 +280,6 @@ int main(int argc, char **argv) {
         return 1;
     }
     
-    // print_pruned_path(&decoded_maze[start_row][start_col], opened_file);
     if (print_pruned_path(&decoded_maze[start_row][start_col], opened_file) == 1) {
         return 1; 
     }
