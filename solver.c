@@ -30,7 +30,6 @@
  *pointed to by the parameter (make sure to use pointers correctly!).
  */
 void create_room_connections(struct maze_room *room, unsigned int hex) {
-    //convert hex to binary - room->connections[SOUTH] = (hex & 2) / 2;
 
     room->dirs[0] = (hex & 1) / 1;
     room->dirs[1] = (hex & 2) / 2;
@@ -64,9 +63,9 @@ void create_room_connections(struct maze_room *room, unsigned int hex) {
  */
 int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
         int num_cols, struct maze_room maze[num_rows][num_cols], FILE *file) {
-    Direction directions[4] = { NORTH, SOUTH, WEST, EAST }; //i edited this -- problem?
+    Direction directions[4] = { NORTH, SOUTH, WEST, EAST }; 
     
-    #ifdef FULL   //is this in correct location?
+    #ifdef FULL   
     int p_coor = fprintf(file, "%d, %d\n", maze[row][col].row, maze[row][col].col); 
     if (p_coor < 0) {
         fprintf(stderr, "Error printing to file.\n");
@@ -85,15 +84,14 @@ int dfs(int row, int col, int goal_row, int goal_col, int num_rows,
 
     for (i=0; i<4; i++) { 
         if (room->dirs[directions[i]] == 0) {
-            // n is being set to NULL
             struct maze_room *n = get_neighbor(num_rows, num_cols, maze, &maze[row][col], directions[i]);
             if (n != NULL) {
                 if (n->visited == 0) {
                     if (dfs(n->row, n->col, goal_row, goal_col, num_rows, num_cols, maze, file) == 1) {
-                        maze[row][col].next = n; //i feel like its not getting here 
+                        maze[row][col].next = n; 
                         return 1;
                     } else {
-                        #ifdef FULL   //is this in correct location?
+                        #ifdef FULL  
                         int p_coor = fprintf(file, "%d, %d\n", maze[row][col].row, maze[row][col].col); 
                         if (p_coor < 0) {
                         fprintf(stderr, "Error printing to file.\n");
@@ -150,9 +148,7 @@ void decode_maze(int num_rows, int num_cols,
  */
 int print_pruned_path(struct maze_room *room, FILE *file) {
 
-    //at first it is null -- need to set it to be something else for first one 
-
-    while (room != NULL) { //not getting in here?
+    while (room != NULL) { 
         int r_coor = fprintf(file, "%d, %d\n", room->row, room->col);
         if (r_coor < 0) {
             fprintf(stderr, "Error printing to file.\n");
@@ -269,10 +265,7 @@ int main(int argc, char **argv) {
     }
     #endif
 
-    // dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file);
-    if (dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file) == 1) {
-        return 1;
-    }
+    dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file);
 
     #ifndef FULL
     int p_prune = fprintf(opened_file, "PRUNED\n");
