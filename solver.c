@@ -247,7 +247,8 @@ int main(int argc, char **argv) {
 
     //need to return? 
     int encoded_maze[num_rows][num_cols];
-    if (read_encoded_maze_from_file(num_rows, num_cols, encoded_maze, maze_file_name)==1) {
+    int r = read_encoded_maze_from_file(num_rows, num_cols, encoded_maze, maze_file_name);
+    if (r==1) {
         return 1;
     }
 
@@ -273,7 +274,8 @@ int main(int argc, char **argv) {
     #endif
 
     //print full here 
-    if (dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file) == 1) {[
+    int d = dfs(start_row, start_col, goal_row, goal_col, num_rows, num_cols, decoded_maze, opened_file);
+    if (d == 1) {[
         return 1;
     ]}
 
@@ -284,7 +286,8 @@ int main(int argc, char **argv) {
         return 1;
     }
     
-    if (print_pruned_path(&decoded_maze[start_row][start_col], opened_file) ==1) {
+    int p = print_pruned_path(&decoded_maze[start_row][start_col], opened_file);
+    if (p ==1) {
         return 1;
     }
     #endif
